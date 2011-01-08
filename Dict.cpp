@@ -8,8 +8,14 @@ using std::runtime_error;
 void Dict::load (string fname) {
     FILE *fp;
     uint nsize;
-    if ((fp = fopen(fname.c_str(), "rb")) == 0) throw runtime_error("Dict::unserialize: cannot open file.");
-    if (fread(&nsize, sizeof(uint), 1, fp) != 1) throw runtime_error("Dict::unserialize: read error.");
+    if ((fp = fopen(fname.c_str(), "rb")) == 0) {
+        fclose(fp);
+        throw runtime_error("Dict::unserialize: cannot open file.");
+    }
+    if (fread(&nsize, sizeof(uint), 1, fp) != 1) {
+        fclose(fp);
+        throw runtime_error("Dict::unserialize: read error.");
+    }
     nodes = new Node[nsize];
     for (uint i=0; i<nsize; i++) {
         nodes[i].unserialize(fp);
