@@ -133,7 +133,7 @@ void Edge::unserialize (FILE *fp) {
 
 void Node::unserialize (FILE *fp) {
     listSize = 0;
-    if (fread(&listSize, 1, 1, fp) != 1) throw runtime_error("EdgeList::userialize: read error.");
+    if (fread(&listSize, 1, 1, fp) != 1) throw runtime_error("EdgeList::unserialize: read error.");
     edges = new Edge[listSize];
     for (uint i=0; i<listSize; ++i) {
         edges[i].unserialize(fp);
