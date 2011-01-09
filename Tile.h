@@ -6,6 +6,9 @@
 class Tile {
     char c;
 public:
+    /**
+     * @param a should be an uppercase letter or '?' if Tile is representing a blank and lowercase otherwise.
+     */
     explicit Tile (char a) : c(a) {
     }
     char letter () {

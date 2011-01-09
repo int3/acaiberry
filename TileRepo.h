@@ -17,7 +17,7 @@ public:
     void putTile (int i);
     void putTile (Tile t, int num);
     int numTiles () const;
-    int numOf (int i) const;
+    int numOf (int i) const; ///< number of tiles of letter-index i
     void empty ();
     std::string txtDisplay () const;
 };
@@ -31,10 +31,8 @@ public:
 
 class Rack : public TileRepo {
 public:
-    Rack (std::string s) : TileRepo(s) {
-    }
-    Rack () {
-    }
+    Rack (std::string s) : TileRepo(s) { }
+    Rack () { }
     int totalValue() const;
     void replenish(TileBag&);
     void subtract (const Rack &r);

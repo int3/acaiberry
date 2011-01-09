@@ -9,13 +9,11 @@ class Dict;
 #include <QObject>
 
 /**
-  Monitors state of the game, e.g. checks if the game
-  should be terminated, whose turn it is
-**/
-
+ * Monitors state of the game, e.g. checks if the game should be terminated, whose turn it is
+ */
 class StateMon : public QObject {
     Q_OBJECT
-    PlayerIn *_playIn[2]; /// _playIn[0] always starts first.
+    PlayerIn *_playIn[2]; ///< _playIn[0] always starts first.
     Board &bd;
     Dict &dict;
     int turnCounter;

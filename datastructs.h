@@ -45,10 +45,10 @@ class Constraint {
 public:
     Constraint () : cons(0) {
     }
-    void addLetter (char c) { ///< @param c is in INDEX form
+    void addLetter (char c) { /// @param c is in INDEX form
         cons |= 1 << c;
     }
-    bool hasLetter (char c) { ///< @param c is in INDEX form
+    bool hasLetter (char c) { /// @param c is in INDEX form
         return cons & 1 << c;
     }
     void setAll () {
