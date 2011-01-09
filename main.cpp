@@ -25,30 +25,30 @@ class OptionError : public exception { };
  * Set up the window.
  * @param playerId The ID of the player using the GUI for move input.
  */
-void setupWindow (QWidget& win, GameCore& gm, int playerId) {
+void setupWindow (QWidget& win, GameCore& gc, int playerId) {
     win.resize(1024, 768);
 
     QVBoxLayout *leftLayout = new QVBoxLayout;
 
     QHBoxLayout *scoreLayout = new QHBoxLayout;
-    ScoreLabel *scoreLabel1 = new ScoreLabel(gm.pin(0), Qt::AlignLeft);
-    ScoreLabel *scoreLabel2 = new ScoreLabel(gm.pin(1), Qt::AlignRight);
+    ScoreLabel *scoreLabel1 = new ScoreLabel(gc.pin(0), Qt::AlignLeft);
+    ScoreLabel *scoreLabel2 = new ScoreLabel(gc.pin(1), Qt::AlignRight);
     scoreLayout->addWidget(scoreLabel1);
     scoreLayout->addWidget(scoreLabel2);
     leftLayout->addLayout(scoreLayout);
 
-    PlayArea *playArea = new PlayArea(gm.board(), gm.pin(playerId));
+    PlayArea *playArea = new PlayArea(gc.board(), gc.pin(playerId));
     leftLayout->addWidget(playArea);
 
     QHBoxLayout *turnBtnsLayout = new QHBoxLayout;
     MoveButton *moveButton = new MoveButton;
     turnBtnsLayout->addWidget(moveButton);
     QObject::connect(moveButton, SIGNAL(clicked()), &playArea->viewBoard(), SLOT(submit()));
-    QObject::connect(&playArea->viewBoard(), SIGNAL(submitMove(MoveInfo)), &gm.pin(playerId), SLOT(doMove(MoveInfo)));
+    QObject::connect(&playArea->viewBoard(), SIGNAL(submitMove(MoveInfo)), &gc.pin(playerId), SLOT(doMove(MoveInfo)));
 
     PassButton *passButton = new PassButton;
     turnBtnsLayout->addWidget(passButton);
-    QObject::connect(passButton, SIGNAL(clicked()), &gm.pin(playerId), SLOT(doPass()));
+    QObject::connect(passButton, SIGNAL(clicked()), &gc.pin(playerId), SLOT(doPass()));
 
     leftLayout->addLayout(turnBtnsLayout);
 
@@ -59,11 +59,11 @@ void setupWindow (QWidget& win, GameCore& gm, int playerId) {
     QObject::connect(&playArea->viewBoard(), SIGNAL(errorMove()), moveLabel, SLOT(setInvalid()));
 
     QTextEdit *textDisplay = new TextDisplay;
-    QObject::connect(&gm.state(), SIGNAL(moveAdded(int,MoveInfo)), textDisplay, SLOT(showMove(int,MoveInfo)));
-    QObject::connect(&gm.state(), SIGNAL(passAdded(int)), textDisplay, SLOT(showPass(int)));
-    QObject::connect(&gm.state(), SIGNAL(roundOver()), textDisplay, SLOT(showRoundOver()));
+    QObject::connect(&gc.state(), SIGNAL(moveAdded(int,MoveInfo)), textDisplay, SLOT(showMove(int,MoveInfo)));
+    QObject::connect(&gc.state(), SIGNAL(passAdded(int)), textDisplay, SLOT(showPass(int)));
+    QObject::connect(&gc.state(), SIGNAL(roundOver()), textDisplay, SLOT(showRoundOver()));
     // namespace prefix is necessary for the signal/slot to match
-    QObject::connect(&gm.pin(playerId), SIGNAL(illegalMove(std::vector<std::string>)), textDisplay,
+    QObject::connect(&gc.pin(playerId), SIGNAL(illegalMove(std::vector<std::string>)), textDisplay,
             SLOT(showIllegals(std::vector<std::string>)));
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(textDisplay);
@@ -83,7 +83,7 @@ int main (int argc, char* argv[]) {
 
     Dict dict;
     dict.load("dawg.bin");
-    GameCore gm(dict);
+    GameCore gc(dict);
 
     string usage(
             "AcaiBerry -- A Scrabble Program.\n"
@@ -110,7 +110,7 @@ int main (int argc, char* argv[]) {
                 int numGames = args[i].toInt(&conversionOk);
                 if (!conversionOk)
                     throw OptionError();
-                Simulator sim (gm, dict);
+                Simulator sim (gc, dict);
                 sim.benchmark(numGames);
                 return 0;
             } else if (args[i] == "--demo") {
@@ -127,16 +127,16 @@ int main (int argc, char* argv[]) {
     }
 
     QWidget win;
-    setupWindow(win, gm, meFirst ? 0 : 1);
-    gm.reset();
+    setupWindow(win, gc, meFirst ? 0 : 1);
+    gc.reset();
 
     if (demo) {
-        Simulator sim (gm, dict);
+        Simulator sim (gc, dict);
         sim.benchmark(1);
         return app.exec();
     }
 
-    Berry berry (gm.pin(meFirst ? 1 : 0), gm.board(), dict);
+    Berry berry (gc.pin(meFirst ? 1 : 0), gc.board(), dict);
     if (!meFirst)
         berry.makeTurn();
 
