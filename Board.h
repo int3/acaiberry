@@ -61,7 +61,6 @@ public:
     void archive (); ///< store the board state
     void revert (); ///< revert to an earlier state
     void placeTiles (const MoveInfo& mv);
-    void txtDisplay (); ///< displays a console representation
     int xScore (int a, int b, int c) const;
     Constraint xCheck (int a, int b, int c) const;
     bool hasTile (int x, int y) const;
@@ -71,6 +70,7 @@ public:
     int lsMult (int x, int y) const; ///< letter score multiplier
     int bonus (int x, int y) const;
     bool isAnchor (int x, int y) const;
+    friend std::string txtDisplay (Board&); ///< displays a console representation
 signals:
     void modified ();
 };

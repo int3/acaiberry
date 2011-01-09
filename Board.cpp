@@ -1,5 +1,7 @@
 #include "Board.h"
 
+using std::string;
+
 Board::Board (Dict &dict) : _dict(dict) {
     calcXValues();
 }
@@ -43,19 +45,6 @@ void Board::placeTiles (const MoveInfo& mv) {
     }
     calcXValues();
     emit modified();
-}
-
-void Board::txtDisplay () {
-    for (int i=0; i<BOARDSIZE; i++) {
-        for (int j=0; j<BOARDSIZE; j++) {
-            if (grid[i][j].hasTile()) {
-                printf("%c", grid[i][j].getTile().letter());
-            } else {
-                printf(".");
-            }
-        }
-        printf("\n");
-    }
 }
 
 void Board::calcXValues () {
@@ -103,6 +92,21 @@ int Board::lsMult (int x, int y) const {
         return 2;
     else
         return 1;
+}
+
+string txtDisplay(Board& board) {
+    string str;
+    for (int i=0; i<BOARDSIZE; i++) {
+        for (int j=0; j<BOARDSIZE; j++) {
+            if (board.grid[i][j].hasTile()) {
+                str.push_back(board.grid[i][j].getTile().letter());
+            } else {
+                str.push_back('.');
+            }
+        }
+        str.push_back('\n');
+    }
+    return str;
 }
 
 const char Board::_bonus[BOARDSIZE][BOARDSIZE] = {

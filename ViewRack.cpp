@@ -46,7 +46,7 @@ void ViewRack::addTile (ViewTile* tile) {
     }
 }
 void ViewRack::reload () {
-    string str = pin.rack().txtDisplay();
+    string str = txtDisplay(pin.rack());
     for (uint i=0; i<RACKSIZE; i++) {
         if (row[i]->hasTile()) row[i]->rmvTile();
     }

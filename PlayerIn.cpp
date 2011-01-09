@@ -56,9 +56,6 @@ int PlayerIn::id () const {
 void PlayerIn::setTurn (bool isTurn) {
     _isMyTurn = isTurn;
 }
-void PlayerIn::displayRack () {
-    printf("%s\n", _rack.txtDisplay().c_str());
-}
 const Rack& PlayerIn::rack () const {
     return _rack;
 }

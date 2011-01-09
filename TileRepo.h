@@ -19,7 +19,7 @@ public:
     int numTiles () const;
     int numOf (int i) const; ///< number of tiles of letter-index i
     void empty ();
-    std::string txtDisplay () const;
+    friend std::string txtDisplay (const TileRepo&);
 };
 
 class TileBag : public TileRepo {

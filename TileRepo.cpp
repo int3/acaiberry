@@ -58,18 +58,6 @@ void TileRepo::empty () {
     _numTiles = 0;
 }
 
-string TileRepo::txtDisplay () const {
-    string str;
-    for (int i=0; i<CHARNUM; i++) {
-        for (int j=0; j<numOf(i); j++) {
-            if (i < ALPHANUM) str.push_back(i+97);
-            else if (i == BLANK) str.push_back('?');
-            else throw bad_input("TileRepo::display()");
-        }
-    }
-    return str;
-}
-
 int Rack::totalValue () const {
     int res = 0;
     for (int i=0; i<CHARNUM; i++)
@@ -90,6 +78,18 @@ void Rack::replenish (TileBag &tb) {
         if (tb.numTiles() == 0) break;
         putTile(tb.drawTile());
     }
+}
+
+string txtDisplay (const TileRepo& tileRepo) {
+    string str;
+    for (int i=0; i<CHARNUM; i++) {
+        for (int j=0; j<tileRepo.numOf(i); j++) {
+            if (i < ALPHANUM) str.push_back(i+97);
+            else if (i == BLANK) str.push_back('?');
+            else throw bad_input("TileRepo::display()");
+        }
+    }
+    return str;
 }
 
 TileBag::TileBag () {

@@ -31,7 +31,6 @@ public:
     void revert ();
     int id () const;
     void setTurn(bool isTurn);
-    void displayRack ();
     const Rack& rack () const;
     void adjustScore (int amt);
     bool isMyTurn () const;
