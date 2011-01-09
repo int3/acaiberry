@@ -3,7 +3,7 @@
 using std::vector;
 
 Berry::Berry (PlayerIn &p, Board &b, Dict &d) : pin(p), bd(b), dict(d) {
-    connect(&p, SIGNAL(turnOver()), this, SLOT(makeTurn()));
+    connect(&p, SIGNAL(turnActivated()), this, SLOT(makeTurn()));
 }
 
 vector<MoveInfo> Berry::genMoves () {
@@ -22,7 +22,6 @@ vector<MoveInfo> Berry::genMoves () {
     return res;
 }
 void Berry::makeTurn () {
-    if (!pin.isMyTurn()) return; // prevents Berry from generating moves from a soon-to-be-outdated Board!!
     std::vector<MoveInfo> res = genMoves();
     if (res.size() != 0) {
         MoveInfo *best = &res[0];

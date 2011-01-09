@@ -18,13 +18,11 @@ class PlayerIn : public QObject {
     int _score;
     Rack _rack;
     int _id;
-    bool _isMyTurn;
     StateMon &state;
     Dict &dict;
     struct old {
         int score;
         Rack rack;
-        bool isMyTurn;
     } previous;
 public:
     PlayerIn (Board &b, Dict &d, TileBag &t, int iden, StateMon &st);
@@ -32,18 +30,17 @@ public:
     void archive ();
     void revert ();
     int id () const;
-    void setTurn(bool isTurn);
     const Rack& rack () const;
     void adjustScore (int amt);
-    bool isMyTurn () const;
     int score () const;
+    void activateTurn() const;
 public slots:
     void doMove (MoveInfo mv);
     void doPass ();
 signals:
     void modified();
     void illegalMove (std::vector<std::string>);
-    void turnOver();
+    void turnActivated() const;
 };
 
 #endif // PLAYERIN_H

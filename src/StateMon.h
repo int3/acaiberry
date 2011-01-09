@@ -16,7 +16,7 @@ class StateMon : public QObject {
     PlayerIn *_playIn[2]; ///< _playIn[0] always starts first.
     Board &bd;
     Dict &dict;
-    int turnCounter;
+    int _turnCounter;
     void setTurn (int id, bool isTurn);
     std::vector<TurnInfo*> turnList;
     int passCount;
@@ -26,17 +26,17 @@ public:
     void beginRound ();
     void endRound ();
     ~StateMon ();
-    void regPlayerIn (PlayerIn &pin); /// register Player interface
+    void regPlayerIn (PlayerIn &pin); ///< register Player interface
     void playerDone (int id, TurnInfo &move);
     void playerRackEmpty (int id);
     void displayMoveList ();
     bool roundOn ();
+    int turnCounter (); ///< @return ID of the player whose turn it is.
     void handover ();
 signals:
     void illegalMove (std::vector<std::string> illegals);
     void moveAdded (int pid, MoveInfo turn);
     void passAdded (int pid);
-    void turnOver ();
     void roundOver ();
 };
 
