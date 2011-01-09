@@ -5,49 +5,57 @@
 TEMPLATE = app
 CONFIG += qt debug_and_release
 CONFIG(debug, debug|release) {
-    TARGET = ./bin/Debug/AcaiBerry
-    OBJECTS_DIR = ./obj/Debug
-    MOC_DIR = ./moc/Debug
+    TARGET = bin/Debug/AcaiBerry
+    OBJECTS_DIR = obj/Debug
+    MOC_DIR = moc/Debug
 } ELSE {
-    TARGET = ./bin/Release/AcaiBerry
-    OBJECTS_DIR = ./obj/Release
-    MOC_DIR = ./moc/Release
+    TARGET = bin/Release/AcaiBerry
+    OBJECTS_DIR = obj/Release
+    MOC_DIR = moc/Release
 }
 DEPENDPATH += .
 INCLUDEPATH += .
+
+images.path = /usr/share/AcaiBerry/img
+images.files = img/arrow.xcf
+resources.path = /usr/share/AcaiBerry/resource
+resources.files = resource/dawg.bin
+bin.path = /usr/local/bin
+bin.files = $$TARGET
+INSTALLS += images resources bin
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3 -fomit-frame-pointer
 
 # Input
-HEADERS += Board.h \
-           Berry.h \
-           datastructs.h \
-           Dict.h \
-           GameCore.h \
-           globals.h \
-           TurnInfo.h \
-           MoveLabel.h \
-           PlayArea.h \
-           PlayerIn.h \
-           ScoreLabel.h \
-           StateMon.h \
-           TextDisplay.h \
-           Tile.h \
-           TileRepo.h \
-           ViewBoard.h \
-           ViewRack.h \
-           ViewTile.h
-SOURCES += Board.cpp \
-           Berry.cpp \
-           Dict.cpp \
-           GameCore.cpp \
-           main.cpp \
-           TurnInfo.cpp \
-           PlayArea.cpp \
-           PlayerIn.cpp \
-           StateMon.cpp \
-           TileRepo.cpp \
-           ViewBoard.cpp \
-           ViewRack.cpp \
-           ViewTile.cpp
+HEADERS += src/Board.h \
+           src/Berry.h \
+           src/datastructs.h \
+           src/Dict.h \
+           src/GameCore.h \
+           src/globals.h \
+           src/TurnInfo.h \
+           src/MoveLabel.h \
+           src/PlayArea.h \
+           src/PlayerIn.h \
+           src/ScoreLabel.h \
+           src/StateMon.h \
+           src/TextDisplay.h \
+           src/Tile.h \
+           src/TileRepo.h \
+           src/ViewBoard.h \
+           src/ViewRack.h \
+           src/ViewTile.h
+SOURCES += src/Board.cpp \
+           src/Berry.cpp \
+           src/Dict.cpp \
+           src/GameCore.cpp \
+           src/main.cpp \
+           src/TurnInfo.cpp \
+           src/PlayArea.cpp \
+           src/PlayerIn.cpp \
+           src/StateMon.cpp \
+           src/TileRepo.cpp \
+           src/ViewBoard.cpp \
+           src/ViewRack.cpp \
+           src/ViewTile.cpp

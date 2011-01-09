@@ -82,7 +82,7 @@ int main (int argc, char* argv[]) {
     qRegisterMetaType<PassInfo>("PassInfo");
 
     Dict dict;
-    dict.load("dawg.bin");
+    dict.load("resource/dawg.bin");
     GameCore gc(dict);
 
     string usage(
