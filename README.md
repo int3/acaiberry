@@ -4,7 +4,7 @@ README
 BUILD INSTRUCTIONS
 -------------------
 
-* `qmake && make release && bin/Release/AcaiBerry`
+* Run `qmake`, then do `make release && bin/Release/AcaiBerry` or `sudo make install && AcaiBerry`
 
 * Tested against Qt 4.5 on Linux, but should build against earlier versions of Qt as well. I think it would
 work on Windows too.
