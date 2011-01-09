@@ -15,14 +15,11 @@ struct Edge {
 };
 
 class Node {
-    Edge *edges;
+    std::vector<Edge> edges;
     uint listSize;
 public:
     bool isTerm;
     Node () : listSize(0), isTerm(false) {
-    }
-    ~Node () {
-        delete[] edges;
     }
     int operator[] (int n) const {
         for (uint i = 0; i < listSize; ++i) {
@@ -31,7 +28,7 @@ public:
         }
         return 0;
     }
-    Edge& at (int n) const {
+    const Edge at (int n) const {
         return edges[n];
     }
     uint size () const {
@@ -41,12 +38,11 @@ public:
 };
 
 class Dict {
-    Node *nodes;
+    std::vector<Node> nodes;
     void findWordsRec (TileRepo &tiles, std::string &str, std::vector<std::string> &res, int np);
     bool findConstraintRec (const std::string &str, Constraint &cons, int np, uint pos);
     void findMovesRec (TileRepo&, Board&, const int[2], int, int, std::string&, std::vector<MoveInfo>&, int=0, int=0, int=0);
 public:
-    ~Dict ();
     void load (std::string fname);
     bool contains (const std::string str);
     std::vector<std::string> findWords (TileRepo tiles);

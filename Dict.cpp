@@ -16,15 +16,11 @@ void Dict::load (string fname) {
         fclose(fp);
         throw runtime_error("Dict::unserialize: read error.");
     }
-    nodes = new Node[nsize];
+    nodes.resize(nsize);
     for (uint i=0; i<nsize; i++) {
         nodes[i].unserialize(fp);
     }
     fclose(fp);
-}
-
-Dict::~Dict () {
-    delete[] nodes;
 }
 
 bool Dict::contains (const string str) {
@@ -84,7 +80,7 @@ bool Dict::findConstraintRec (const string &str, Constraint &cons, int np, uint 
     else if (str[pos] == '?') {
         uint nsize = nodes[np].size();
         for (uint i=0; i<nsize; ++i) {
-            Edge &next = nodes[np].at(i);
+            const Edge next = nodes[np].at(i);
             if (findConstraintRec(str, cons, next.ptr, pos+1)) {
                 cons.addLetter(next.val);
             }
@@ -115,7 +111,7 @@ void Dict::findMovesRec (TileRepo &tiles, Board &bd, const int coord[2], int ori
     }
     uint nsize = nodes[np].size();
     for (uint i=0; i<nsize; ++i) {
-        Edge &next = nodes[np].at(i);
+        const Edge next = nodes[np].at(i);
         if (bd.xCheck(ori, coord[0]+(ori^1)*depth, coord[1]+ori*depth).hasLetter(next.val)) {
             int a;
             if (tiles.hasTile(next.val)) a = next.val+97;
@@ -140,7 +136,7 @@ void Edge::unserialize (FILE *fp) {
 void Node::unserialize (FILE *fp) {
     listSize = 0;
     if (fread(&listSize, 1, 1, fp) != 1) throw runtime_error("EdgeList::unserialize: read error.");
-    edges = new Edge[listSize];
+    edges.resize(listSize);
     for (uint i=0; i<listSize; ++i) {
         edges[i].unserialize(fp);
     }
