@@ -85,7 +85,10 @@ int main (int argc, char* argv[]) {
     qRegisterMetaType<PassInfo>("PassInfo");
 
     Dict dict;
-    dict.load("resource/dawg.bin");
+    if (!dict.load("resource/dawg.bin") && !dict.load("/usr/local/share/AcaiBerry/resource/dawg.bin")) {
+        cout << "Could not find dawg.bin in ./resource/ or /usr/local/share/AcaiBerry/resource.\n";
+        return 1;
+    }
     GameCore gc(dict);
 
     string usage(

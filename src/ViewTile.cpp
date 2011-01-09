@@ -121,7 +121,7 @@ void ViewCell::swapTiles (ViewCell *vc) {
 // BEGIN CLASS VIEWBOARDCELL
 ////////////////////////////////////////
 
-ViewBoardCell::ViewBoardCell (ViewRack& vr, QWidget *parent) : ViewCell(parent), inMode(VERTICAL), isActive(false), viewRack(vr), arrowMap("img/arrow.gif") {
+ViewBoardCell::ViewBoardCell (ViewRack& vr, QWidget *parent) : ViewCell(parent), inMode(VERTICAL), isActive(false), viewRack(vr), arrowMap(":/img/arrow.gif") {
     setFocusPolicy(Qt::ClickFocus);
     for (int i=0; i<2; i++)
         for (int j=0; j<2; j++)

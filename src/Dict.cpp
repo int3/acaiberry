@@ -5,22 +5,22 @@ using std::string;
 using std::vector;
 using std::runtime_error;
 
-void Dict::load (string fname) {
+bool Dict::load (string fname) {
     FILE *fp;
     uint nsize;
     if ((fp = fopen(fname.c_str(), "rb")) == 0) {
-        fclose(fp);
-        throw runtime_error("Dict::unserialize: cannot open file.");
+        return false;
     }
     if (fread(&nsize, sizeof(uint), 1, fp) != 1) {
         fclose(fp);
-        throw runtime_error("Dict::unserialize: read error.");
+        return false;
     }
     nodes.resize(nsize);
     for (uint i=0; i<nsize; i++) {
         nodes[i].unserialize(fp);
     }
     fclose(fp);
+    return true;
 }
 
 bool Dict::contains (const string str) {

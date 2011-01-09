@@ -43,7 +43,7 @@ class Dict {
     bool findConstraintRec (const std::string &str, Constraint &cons, int np, uint pos);
     void findMovesRec (TileRepo&, Board&, const int[2], int, int, std::string&, std::vector<MoveInfo>&, int=0, int=0, int=0);
 public:
-    void load (std::string fname);
+    bool load (std::string fname);
     bool contains (const std::string str);
     /// Generates all possible anagrams of a set of tiles.
     std::vector<std::string> findWords (TileRepo tiles);

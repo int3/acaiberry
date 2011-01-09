@@ -1,6 +1,7 @@
 bin/
 obj/
 moc/
+rcc/
 doxygen/
 .svn/
 Makefile*

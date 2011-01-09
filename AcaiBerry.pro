@@ -16,13 +16,14 @@ CONFIG(debug, debug|release) {
 DEPENDPATH += .
 INCLUDEPATH += .
 
-images.path = /usr/share/AcaiBerry/img
-images.files = img/arrow.xcf
-resources.path = /usr/share/AcaiBerry/resource
+resources.path = /usr/local/share/AcaiBerry/resource
 resources.files = resource/dawg.bin
 bin.path = /usr/local/bin
 bin.files = $$TARGET
-INSTALLS += images resources bin
+INSTALLS += resources bin
+
+RESOURCES = application.qrc
+RCC_DIR = rcc
 
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3 -fomit-frame-pointer
