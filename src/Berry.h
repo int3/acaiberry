@@ -5,7 +5,7 @@
 #include <vector>
 #include <QObject>
 /**
-  The AI
+  @brief The AI
 **/
 class Berry : public QObject {
     Q_OBJECT

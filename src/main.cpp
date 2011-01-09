@@ -19,6 +19,9 @@ using std::string;
 using std::cout;
 using std::exception;
 
+/**
+ * @brief Thrown when command line options cannot be parsed.
+ */
 class OptionError : public exception { };
 
 /**

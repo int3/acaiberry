@@ -6,7 +6,7 @@
 #include "globals.h"
 
 /**
-  Board coordinates
+  @brief Board coordinates
 **/
 class Coord {
     int p[2];
@@ -37,9 +37,8 @@ public:
 };
 
 /**
-  For move-generating algorithm to store the
-  characters that could legally be placed on a given square
-**/
+  @brief For move-generating algorithm to store the characters that could legally be placed on a given square
+ **/
 class Constraint {
     uint cons;
 public:
@@ -60,7 +59,7 @@ public:
 };
 
 /**
-  Essentially a deque that masquarades as a string.
+  @brief Essentially a deque that masquarades as a string.
 **/
 class BiString {
     std::deque<char> bstr;

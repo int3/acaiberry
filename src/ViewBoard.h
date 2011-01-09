@@ -4,6 +4,9 @@
 #include "Board.h"
 #include "ViewTile.h"
 
+/**
+ * @brief Graphical display of the board.
+ */
 class ViewBoard : public QWidget {
     Q_OBJECT
     Board &bd;

@@ -7,9 +7,11 @@
 
 class StateMon;
 /**
-  Generic interface that both human and computer players use
+  @brief Player Interface. Used by both human and computer players.
+
+  Keeps track of score, tiles on the rack.
 **/
-class PlayerIn : public QObject { // Player Interface
+class PlayerIn : public QObject {
     Q_OBJECT
     Board &bd;
     TileBag &tb;

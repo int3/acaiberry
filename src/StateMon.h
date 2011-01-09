@@ -9,7 +9,7 @@ class Dict;
 #include <QObject>
 
 /**
- * Monitors state of the game, e.g. checks if the game should be terminated, whose turn it is
+ * @brief Monitors state of the game, e.g. checks if the game should be terminated, whose turn it is
  */
 class StateMon : public QObject {
     Q_OBJECT

@@ -30,7 +30,7 @@ signals:
 };
 
 /**
-  Forms the board squares / rack squares.
+  @brief Forms the board squares / rack squares.
 **/
 class ViewCell : public QLabel {
     Q_OBJECT
@@ -76,11 +76,11 @@ signals:
 };
 
 /**
-  Coordinates the drag/drop of ViewTiles. When a ViewTile
-  is released by mouseclick, ViewCellRepo decides to which
-  ViewCell it should go to. All ViewTiles and ViewCells must
-  register with this class.
-**/
+  @brief Coordinates the drag / drop of ViewTiles.
+  
+  When a ViewTile is released by mouseclick, ViewCellRepo decides to which ViewCell it should go to. All
+  ViewTiles and ViewCells must register with this class.
+ **/
 class ViewCellRepo : public QObject {
     Q_OBJECT
     QWidget *parent;

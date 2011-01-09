@@ -45,7 +45,9 @@ class Dict {
 public:
     void load (std::string fname);
     bool contains (const std::string str);
+    /// Generates all possible anagrams of a set of tiles.
     std::vector<std::string> findWords (TileRepo tiles);
+    /// Generates all possible moves given a set of tiles and a board.
     void findMoves (TileRepo tiles, Board &bd, const int[2], int ori, int minLen, std::vector<MoveInfo>&);
     Constraint findConstraint (const std::string str);
 };

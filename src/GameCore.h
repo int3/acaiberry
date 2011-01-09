@@ -10,7 +10,7 @@ class PlayerIn;
 class Berry;
 
 /**
-  Encompasses all non-GUI aspects of the game.
+  @brief Encompasses all non-GUI aspects of the game.
 **/
 class GameCore {
     Dict &dict;
@@ -28,8 +28,7 @@ public:
 };
 
 /**
-  Simulates game with two computer players
-  for testing / benchmark purposes.
+  @brief Simulates game with two computer players for testing / benchmark purposes.
 **/
 class Simulator {
     GameCore &gc;

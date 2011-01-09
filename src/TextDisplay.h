@@ -4,6 +4,9 @@
 #include <QTextEdit>
 #include "TurnInfo.h"
 
+/**
+ * @brief The text display on the RHS of the application.
+ */
 class TextDisplay : public QTextEdit {
     Q_OBJECT
     QTextCursor cursor;
