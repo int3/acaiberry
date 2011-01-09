@@ -22,7 +22,6 @@ QMAKE_CXXFLAGS_RELEASE += -O3 -fomit-frame-pointer
 # Input
 HEADERS += Board.h \
            Berry.h \
-           CPlayer.h \
            datastructs.h \
            Dict.h \
            GameCore.h \
@@ -41,7 +40,6 @@ HEADERS += Board.h \
            ViewTile.h
 SOURCES += Board.cpp \
            Berry.cpp \
-           CPlayer.cpp \
            Dict.cpp \
            GameCore.cpp \
            main.cpp \

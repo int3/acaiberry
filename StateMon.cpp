@@ -31,6 +31,7 @@ StateMon::~StateMon () {
 }
 void StateMon::regPlayerIn (PlayerIn &pin) {
     _playIn[pin.id()] = &pin;
+    connect(this, SIGNAL(turnOver()), &pin, SIGNAL(turnOver()));
 }
 void StateMon::playerDone (int pid, TurnInfo &turn) {
     if (turn.type() != PASS) passCount = 0;
@@ -51,9 +52,12 @@ void StateMon::playerDone (int pid, TurnInfo &turn) {
     }
 }
 void StateMon::handover () {
+    if (!_roundOn)
+        return;
     setTurn(turnCounter, false);
     turnCounter ^= 1;
     setTurn(turnCounter, true);
+    emit turnOver();
 }
 void StateMon::playerRackEmpty (int id) {
     _playIn[id^1]->adjustScore(_playIn[id]->rack().totalValue());

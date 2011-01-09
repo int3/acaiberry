@@ -38,6 +38,7 @@ signals:
     void illegalMove (std::vector<std::string> illegals);
     void moveAdded (int pid, MoveInfo turn);
     void passAdded (int pid);
+    void turnOver ();
     void roundOver ();
 };
 

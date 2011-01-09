@@ -3,7 +3,6 @@
 #include "Dict.h"
 #include "GameCore.h"
 #include "Berry.h"
-#include "CPlayer.h"
 
 #include <QApplication>
 #include <QVBoxLayout>
@@ -76,10 +75,7 @@ int main (int argc, char* argv[]) {
 
     gm.reset();
     Berry berry (gm.pin(0), gm.board(), dict);
-    CPlayer cp(app, gm.state(), berry);
-    cp.start();
+    berry.makeTurn();
 
-    int retval = app.exec();
-    if (cp.isRunning()) cp.wait();
-    return retval;
+    return app.exec();
 }

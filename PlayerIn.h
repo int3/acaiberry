@@ -42,6 +42,7 @@ public slots:
 signals:
     void modified();
     void illegalMove (std::vector<std::string>);
+    void turnOver();
 };
 
 #endif // PLAYERIN_H

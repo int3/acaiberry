@@ -2,7 +2,9 @@
 
 using std::vector;
 
-Berry::Berry (PlayerIn &p, Board &b, Dict &d) : pin(p), bd(b), dict(d) { }
+Berry::Berry (PlayerIn &p, Board &b, Dict &d) : pin(p), bd(b), dict(d) {
+    connect(&p, SIGNAL(turnOver()), this, SLOT(makeTurn()));
+}
 
 vector<MoveInfo> Berry::genMoves () {
     vector<MoveInfo> res;
