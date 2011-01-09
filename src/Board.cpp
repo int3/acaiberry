@@ -99,8 +99,10 @@ string txtDisplay(Board& board) {
     for (int i=0; i<BOARDSIZE; i++) {
         for (int j=0; j<BOARDSIZE; j++) {
             if (board.grid[i][j].hasTile()) {
+                str.push_back(' ');
                 str.push_back(board.grid[i][j].getTile().letter());
             } else {
+                str.push_back(' ');
                 str.push_back('.');
             }
         }
