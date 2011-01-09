@@ -38,7 +38,7 @@ class Simulator {
 public:
     Simulator (GameCore &g, Dict &d);
     ~Simulator ();
-    void run ();
+    void benchmark (int rounds);
 };
 
 #endif // GAMECORE_H

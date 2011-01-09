@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <iostream>
+#include <exception>
 
 #include "Dict.h"
 #include "GameCore.h"
@@ -14,17 +16,12 @@
 
 using std::vector;
 using std::string;
+using std::cout;
+using std::exception;
 
-int main (int argc, char* argv[]) {
-    QApplication app(argc, argv);
-    qRegisterMetaType<MoveInfo>("MoveInfo");
-    qRegisterMetaType<PassInfo>("PassInfo");
+class OptionError : public exception { };
 
-    Dict dict;
-    dict.load("dawg.bin");
-    GameCore gm(dict);
-
-    QWidget win;
+void setupWindow (QWidget& win, GameCore& gm) {
     win.resize(1024, 768);
 
     QVBoxLayout *leftLayout = new QVBoxLayout;
@@ -72,6 +69,61 @@ int main (int argc, char* argv[]) {
     fullLayout->addLayout(rightLayout);
     win.setLayout(fullLayout);
     win.show();
+}
+
+int main (int argc, char* argv[]) {
+    QApplication app(argc, argv);
+
+    qRegisterMetaType<MoveInfo>("MoveInfo");
+    qRegisterMetaType<PassInfo>("PassInfo");
+
+    Dict dict;
+    dict.load("dawg.bin");
+    GameCore gm(dict);
+
+    string usage(
+            "AcaiBerry -- A Scrabble Program.\n"
+            "Usage:\n"
+            "[no arguments]       Run the game.\n"
+            "--help               Display this message.\n"
+            "--benchmark [num]    Simulate [num] games between 2 AI players. No GUI display.\n"
+            "--me-first           Run the game with you making the first move.\n"
+            "--demo               Run a game between 2 AI players and see the result.\n"
+            );
+    QStringList args = app.arguments();
+    bool meFirst = false;
+    bool demo = false;
+    try {
+        for (int i=0; i<args.length(); i++) {
+            if (args[i] == "--help") {
+                cout << usage;
+                return 0;
+            } else if (args[i] == "--benchmark") {
+                i++;
+                if (i >= args.length())
+                    throw OptionError();
+                bool conversionOk;
+                int numGames = args[i].toInt(&conversionOk);
+                if (!conversionOk)
+                    throw OptionError();
+                Simulator sim (gm, dict);
+                sim.benchmark(numGames);
+                return 0;
+            } else if (args[i] == "--demo") {
+                demo = true;
+                break;
+            } else if (args[i] == "--me-first") {
+                meFirst = true;
+                break;
+            }
+        }
+    } catch(OptionError& e) {
+        cout << usage;
+        return 0;
+    }
+
+    QWidget win;
+    setupWindow(win, gm);
 
     gm.reset();
     Berry berry (gm.pin(0), gm.board(), dict);

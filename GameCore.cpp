@@ -40,9 +40,7 @@ Simulator::~Simulator () {
         delete cp[i];
     }
 }
-void Simulator::run () {
-    int startTime = time(NULL);
-    const int rounds = 10;
+void Simulator::benchmark (int rounds) {
     for (int i=0; i<rounds; i++) {
         gc.reset();
         bool roundOn = true;
@@ -54,5 +52,5 @@ void Simulator::run () {
             if (!roundOn) break;
         }
     }
-    printf("Took %ld seconds to run %d games.\n", time(NULL)-startTime, rounds);
+    printf("Simulated %d games.\n", rounds);
 }
