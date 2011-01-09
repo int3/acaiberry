@@ -15,7 +15,7 @@ class Dict;
 
 class StateMon : public QObject {
     Q_OBJECT
-    PlayerIn *_playIn[2];
+    PlayerIn *_playIn[2]; /// _playIn[0] always starts first.
     Board &bd;
     Dict &dict;
     int turnCounter;

@@ -6,3 +6,4 @@ doxygen/
 Makefile*
 *.swp
 *.html
+tags

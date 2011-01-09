@@ -21,7 +21,11 @@ using std::exception;
 
 class OptionError : public exception { };
 
-void setupWindow (QWidget& win, GameCore& gm) {
+/**
+ * Set up the window.
+ * @param playerId The ID of the player using the GUI for move input.
+ */
+void setupWindow (QWidget& win, GameCore& gm, int playerId) {
     win.resize(1024, 768);
 
     QVBoxLayout *leftLayout = new QVBoxLayout;
@@ -33,18 +37,18 @@ void setupWindow (QWidget& win, GameCore& gm) {
     scoreLayout->addWidget(scoreLabel2);
     leftLayout->addLayout(scoreLayout);
 
-    PlayArea *playArea = new PlayArea(gm.board(), gm.pin(1));
+    PlayArea *playArea = new PlayArea(gm.board(), gm.pin(playerId));
     leftLayout->addWidget(playArea);
 
     QHBoxLayout *turnBtnsLayout = new QHBoxLayout;
     MoveButton *moveButton = new MoveButton;
     turnBtnsLayout->addWidget(moveButton);
     QObject::connect(moveButton, SIGNAL(clicked()), &playArea->viewBoard(), SLOT(submit()));
-    QObject::connect(&playArea->viewBoard(), SIGNAL(submitMove(MoveInfo)), &gm.pin(1), SLOT(doMove(MoveInfo)));
+    QObject::connect(&playArea->viewBoard(), SIGNAL(submitMove(MoveInfo)), &gm.pin(playerId), SLOT(doMove(MoveInfo)));
 
     PassButton *passButton = new PassButton;
     turnBtnsLayout->addWidget(passButton);
-    QObject::connect(passButton, SIGNAL(clicked()), &gm.pin(1), SLOT(doPass()));
+    QObject::connect(passButton, SIGNAL(clicked()), &gm.pin(playerId), SLOT(doPass()));
 
     leftLayout->addLayout(turnBtnsLayout);
 
@@ -59,7 +63,7 @@ void setupWindow (QWidget& win, GameCore& gm) {
     QObject::connect(&gm.state(), SIGNAL(passAdded(int)), textDisplay, SLOT(showPass(int)));
     QObject::connect(&gm.state(), SIGNAL(roundOver()), textDisplay, SLOT(showRoundOver()));
     // namespace prefix is necessary for the signal/slot to match
-    QObject::connect(&gm.pin(1), SIGNAL(illegalMove(std::vector<std::string>)), textDisplay,
+    QObject::connect(&gm.pin(playerId), SIGNAL(illegalMove(std::vector<std::string>)), textDisplay,
             SLOT(showIllegals(std::vector<std::string>)));
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->addWidget(textDisplay);
@@ -123,11 +127,18 @@ int main (int argc, char* argv[]) {
     }
 
     QWidget win;
-    setupWindow(win, gm);
-
+    setupWindow(win, gm, meFirst ? 0 : 1);
     gm.reset();
-    Berry berry (gm.pin(0), gm.board(), dict);
-    berry.makeTurn();
+
+    if (demo) {
+        Simulator sim (gm, dict);
+        sim.benchmark(1);
+        return app.exec();
+    }
+
+    Berry berry (gm.pin(meFirst ? 1 : 0), gm.board(), dict);
+    if (!meFirst)
+        berry.makeTurn();
 
     return app.exec();
 }
