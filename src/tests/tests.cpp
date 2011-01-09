@@ -14,7 +14,7 @@ public:
     DictTest (Dict *d) : dict(d) { }
     void containsAll () {
         char tmp[20];
-        FILE *fp = fopen("sowpods.txt", "r");
+        FILE *fp = fopen("../../resource/sowpods.txt", "r");
         bool hasAll = true;
         while (fscanf(fp, "%s", tmp) != EOF) {
             if(!dict->contains(tmp)) {
@@ -50,7 +50,7 @@ public:
         }
     }
     void testScores () {
-        FILE *fp = fopen("tests/scores.in", "r");
+        FILE *fp = fopen("scores.in", "r");
         char tmp[20];
         int predicted;
         bool allswell = true;
@@ -79,14 +79,14 @@ public:
             bd.placeTiles(res);
             index++;
         }
-        if (allswell) printf("PASSED: all calculated scores match predicted scores\n");
+        if (allswell) printf("PASSED: All calculated scores match predicted scores\n");
         fclose(fp);
     }
 };
 
 int main () {
     Dict dict;
-    dict.load("dawg.bin");
+    dict.load("../../resource/dawg.bin");
     DictTest dt(&dict);
     dt.containsAll();
     ScoreTest st(dict);
