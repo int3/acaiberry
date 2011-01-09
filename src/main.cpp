@@ -99,10 +99,12 @@ int main (int argc, char* argv[]) {
             "--benchmark [num]    Simulate [num] games between 2 AI players. No GUI display.\n"
             "--me-first           Run the game with you making the first move.\n"
             "--demo               Run a game between 2 AI players and see the result.\n"
+            "--text               Run in text mode. (Not fully implemented; only works together with --demo.)\n"
             );
     QStringList args = app.arguments();
     bool meFirst = false;
     bool demo = false;
+    bool textMode = false;
     try {
         for (int i=0; i<args.length(); i++) {
             if (args[i] == "--help") {
@@ -121,10 +123,10 @@ int main (int argc, char* argv[]) {
                 return 0;
             } else if (args[i] == "--demo") {
                 demo = true;
-                break;
             } else if (args[i] == "--me-first") {
                 meFirst = true;
-                break;
+            } else if (args[i] == "--text") {
+                textMode = true;
             }
         }
     } catch(OptionError& e) {
@@ -139,7 +141,12 @@ int main (int argc, char* argv[]) {
     if (demo) {
         Simulator sim (gc, dict);
         sim.benchmark(1);
-        return app.exec();
+        if (textMode) {
+            cout << txtDisplay(gc.board());
+            return 0;
+        } else {
+            return app.exec();
+        }
     }
 
     Berry berry (gc.pin(meFirst ? 1 : 0), gc.board(), dict);
