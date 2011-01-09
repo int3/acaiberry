@@ -1,5 +1,9 @@
 README
 -------
+AcaiBerry is a Scrabble AI with a Qt GUI interface.
+
+There are several Scrabble AIs on the Internet Scrabble Club servers that are named -berry. AcaiBerry's name
+was inspired by them, as well as by the popularity of the acai berry in spam mail.
 
 BUILD INSTRUCTIONS
 -------------------
@@ -10,6 +14,8 @@ BUILD INSTRUCTIONS
 work on Windows too.
 
 * `doxygen` generates the documentation.
+
+* Type `AcaiBerry --help` for more options.
 
 DESCRIPTION OF THE ALGORITHM
 -----------------------------
